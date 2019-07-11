@@ -1,0 +1,2 @@
+"0","training.data.1 <- training.data.raw %>% select(-CurrencyCode,-CountryCode)"
+"0","rm(training.data.raw)"

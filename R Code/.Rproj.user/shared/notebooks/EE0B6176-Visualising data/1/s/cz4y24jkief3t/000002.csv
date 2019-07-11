@@ -1,0 +1,16 @@
+"0","datatable(sapply(training.data.raw, function(x) length(unique(x))))"
+"1"," Named int [1:16] "
+"1","95662 94809 3633 3627 3742 1 1 6 23 9"
+"1"," ..."
+"1","
+"
+"1"," "
+"1","- attr(*, ""names"")="
+"1"," chr [1:16] "
+"1","""TransactionId"" ""BatchId"" ""AccountId"" ""SubscriptionId"""
+"1"," ..."
+"1","
+"
+"2","Error in datatable(sapply(training.data.raw, function(x) length(unique(x)))) : 
+  'data' must be 2-dimensional (e.g. data frame or matrix)
+"

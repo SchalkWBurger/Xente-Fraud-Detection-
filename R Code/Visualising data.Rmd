@@ -1,0 +1,99 @@
+---
+title: Xente Fraud detection
+output: html_document
+margin: 1cm
+---
+
+##Load libraries
+```{r}
+library(readr)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(rpart)
+library(scales)
+library(DT)
+library(lubridate)
+```
+
+##Increase memory limit
+```{r}
+memory.limit(size = 3000000000000)
+```
+##Read in the training data
+```{r}
+training.data.raw <- read.csv(file = "../training.csv", header = TRUE, na.strings=c(""))
+```
+
+```{r}
+class(training.data.raw)
+```
+
+##Quick glance at the data
+```{r warning=FALSE}
+datatable(head(training.data.raw, n = 30))
+```
+**Notes from graph**
+* Check the relationship between product id and category
+* Check if there is multiple of the same product categories with slightly differnt spelling
+* Take Transaction StartTime and create new variables from there - Hour, Minute, Day, Weekend, etc.
+
+
+##Check for missing values
+
+```{r}
+sapply(training.data.raw,function(x) sum(is.na(x))) %>% as.data.frame()
+```
+**There is no missing data**
+
+##Check the amount of unique values for each variable
+```{r}
+sapply(training.data.raw, function(x) length(unique(x))) %>% as.data.frame()
+```
+**There is only one currency and country - This variable does not add any value**
+
+## Only one currency and one country code - Remove country code and currency code
+```{r}
+training.data.1 <- training.data.raw %>% select(-CurrencyCode,-CountryCode)
+rm(training.data.raw)
+```
+
+## Create new columns from TransactionStartTime
+```{r}
+training.data.2 <- training.data.1 %>% 
+    mutate(
+      WeekNumber = lubridate::isoweek(training.data.1$TransactionStartTime),
+      Year = lubridate::year(training.data.1$TransactionStartTime),
+      Month = lubridate::month(training.data.1$TransactionStartTime),
+      WeekDay = lubridate::wday(training.data.1$TransactionStartTime),
+      Time = lubridate::ymd_hms(training.data.1$TransactionStartTime),
+      DayOfMonth <- lubridate::day(training.data.1$TransactionStartTime),     
+      AMOrPM <- lubridate::pm(training.data.1$TransactionStartTime),      
+      DayOfQuarter <- lubridate::qday(training.data.1$TransactionStartTime),    
+      Quarter <- lubridate::quarter(training.data.1$TransactionStartTime), 
+      DayOfYear <- lubridate::yday(training.data.1$TransactionStartTime),    
+      Date <- lubridate::date(training.data.1$TransactionStartTime)
+    )
+rm(training.data.1)
+```
+
+## Split into training and validation
+```{r}
+trainingPerc <- as.numeric(0.7)
+training <- training.data.2[1:round(trainingPerc*nrow(training.data.2), digits = 0),]
+validation <- training.data.2[round((trainingPerc)*nrow(training.data.2)+1, digits = 0):nrow(training.data.2),]
+```
+
+##Create summary view of the training set
+```{r}
+summary(training)
+```
+
+##Histogram of Fraudresult distribution
+```{r warning=FALSE}
+ggplot2::ggplot(training, aes(x = FraudResult)) + 
+  geom_histogram(stat = 'count') +
+  stat_bin(bins = 2, aes(label = round((..count..)/sum(..count..), digits = 4)), geom = "text", size = 4) +
+  ggtitle("Fraud Result Histogram")
+```
+

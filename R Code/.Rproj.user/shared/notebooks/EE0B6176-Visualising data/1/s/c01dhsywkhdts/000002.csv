@@ -1,0 +1,4 @@
+"0","training.data.2 <- training.data.1 %>% "
+"0","    mutate("
+"0","      Day = lubridate::isoweek(training.data.1$TransactionStartTime)"
+"0","    )"

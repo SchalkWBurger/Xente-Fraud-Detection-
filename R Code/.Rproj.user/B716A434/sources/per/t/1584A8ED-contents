@@ -1,0 +1,10 @@
+library(readr)
+library(knitr)
+library(tidyverse)
+library(ggplot2)
+library(rpart)
+library(scales)
+library(DT)
+library(lubridate)
+
+memory.limit(size = 3000000000000)

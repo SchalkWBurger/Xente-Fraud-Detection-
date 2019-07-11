@@ -1,0 +1,47 @@
+"0","library(readr)"
+"0","library(knitr)"
+"0","library(tidyverse)"
+"2","[37m-- [1mAttaching packages[22m --------------------------------------- tidyverse 1.2.1 --[39m
+"
+"2","[37m[32mv[37m [34mggplot2[37m 2.2.1     [32mv[37m [34mpurrr  [37m 0.2.4
+[32mv[37m [34mtibble [37m 1.4.1     [32mv[37m [34mdplyr  [37m 0.7.4
+[32mv[37m [34mtidyr  [37m 0.7.2     [32mv[37m [34mstringr[37m 1.2.0
+[32mv[37m [34mggplot2[37m 2.2.1     [32mv[37m [34mforcats[37m 0.2.0[39m
+"
+"2","[37m-- [1mConflicts[22m ------------------------------------------ tidyverse_conflicts() --
+[31mx[37m [34mlubridate[37m::[32mas.difftime()[37m masks [34mbase[37m::as.difftime()
+[31mx[37m [34mlubridate[37m::[32mdate()[37m        masks [34mbase[37m::date()
+[31mx[37m [34mdplyr[37m::[32mfilter()[37m          masks [34mstats[37m::filter()
+[31mx[37m [34mlubridate[37m::[32mintersect()[37m   masks [34mbase[37m::intersect()
+[31mx[37m [34mdplyr[37m::[32mlag()[37m             masks [34mstats[37m::lag()
+[31mx[37m [34mlubridate[37m::[32msetdiff()[37m     masks [34mbase[37m::setdiff()
+[31mx[37m [34mlubridate[37m::[32munion()[37m       masks [34mbase[37m::union()[39m
+"
+"0","library(ggplot2)"
+"0","library(rpart)"
+"0","library(scales)"
+"2","
+Attaching package: ‘scales’
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    discard
+
+"
+"2","The following object is masked from ‘package:readr’:
+
+    col_factor
+
+"
+"0","library(DT)"
+"2","
+Attaching package: ‘DT’
+
+"
+"2","The following object is masked from ‘package:MicrosoftML’:
+
+    selectColumns
+
+"
+"0","library(lubridate)"
